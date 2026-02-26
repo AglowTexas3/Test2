@@ -1,0 +1,47 @@
+class House:
+    def __init__(self) -> None:
+        self.walls = 0
+        self.windows = 0
+        self.doors = 0
+        self.has_garage = False
+
+    def __str__(self) -> str:
+        return (f"House: walls={self.walls}, windows={self.windows}, "
+                f"doors={self.doors}, garage={self.has_garage}")
+
+
+class HouseBuilder:
+    def __init__(self) -> None:
+        self._house = House()
+
+    def build_walls(self, count: int) -> "HouseBuilder":
+        self._house.walls = count
+        return self
+
+    def build_windows(self, count: int) -> "HouseBuilder":
+        self._house.windows = count
+        return self
+
+    def build_doors(self, count: int) -> "HouseBuilder":
+        self._house.doors = count
+        return self
+
+    def add_garage(self) -> "HouseBuilder":
+        self._house.has_garage = True
+        return self
+
+    def get_result(self) -> House:
+        return self._house
+
+
+if __name__ == "__main__":
+    builder = HouseBuilder()
+    house = (
+        builder
+        .build_walls(4)
+        .build_windows(6)
+        .build_doors(2)
+        .add_garage()
+        .get_result()
+    )
+    print(house)

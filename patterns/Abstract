@@ -1,0 +1,71 @@
+from abc import ABC, abstractmethod
+
+
+class Button(ABC):
+    @abstractmethod
+    def render(self) -> None:
+        pass
+
+
+class Checkbox(ABC):
+    @abstractmethod
+    def render(self) -> None:
+        pass
+
+
+class WinButton(Button):
+    def render(self) -> None:
+        print("Windows‑кнопка")
+
+
+class WinCheckbox(Checkbox):
+    def render(self) -> None:
+        print("Windows‑чекбокс")
+
+
+class MacButton(Button):
+    def render(self) -> None:
+        print("macOS‑кнопка")
+
+
+class MacCheckbox(Checkbox):
+    def render(self) -> None:
+        print("macOS‑чекбокс")
+
+
+class GUIFactory(ABC):
+    @abstractmethod
+    def create_button(self) -> Button:
+        pass
+
+    @abstractmethod
+    def create_checkbox(self) -> Checkbox:
+        pass
+
+
+class WinFactory(GUIFactory):
+    def create_button(self) -> Button:
+        return WinButton()
+
+    def create_checkbox(self) -> Checkbox:
+        return WinCheckbox()
+
+
+class MacFactory(GUIFactory):
+    def create_button(self) -> Button:
+        return MacButton()
+
+    def create_checkbox(self) -> Checkbox:
+        return MacCheckbox()
+
+
+def create_ui(factory: GUIFactory) -> None:
+    btn = factory.create_button()
+    cb = factory.create_checkbox()
+    btn.render()
+    cb.render()
+
+
+if __name__ == "__main__":
+    create_ui(WinFactory())
+    create_ui(MacFactory())
